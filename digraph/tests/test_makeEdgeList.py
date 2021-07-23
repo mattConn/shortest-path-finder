@@ -1,9 +1,11 @@
 import digraph as dg
 
-connections =  '''NY -> Iceland -> London -> Berlin
+connections =  '''
+NY -> Iceland -> London -> Berlin
 NY -> Maine -> London
 Berlin -> Paris -> Amsterdam
-Paris -> London -> Egypt'''
+Paris -> London -> Egypt
+'''
 
 def test_connections():
 	edgeList = dg.makeEdgeList(connections,' -> ')
