@@ -21,3 +21,12 @@ def test_connections():
 	}
 
 	assert edgeList == want
+
+def test_empty():
+	assert graph.fromEdgeList('', ' -> ') == dict()
+
+def test_badEdgeList():
+	assert graph.fromEdgeList('foo bar baz', ' -> ') == dict()
+
+def test_badDelimiter():
+	assert graph.fromEdgeList(connections, ' => ') == dict()
