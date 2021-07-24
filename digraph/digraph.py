@@ -17,39 +17,37 @@ def makeEdgeList(edgeListString, delim=' '):
 
 	return edgeList
 
-# depth-first search
-def dfs(edgeList, visited, source, target):
-	if len(visited) == len(edgeList):
-		return False
-
-	result = False
-
-	for n in edgeList[source]:
-		if n in visited:
-			continue
-
-		if n == target:
-			return True
-
-		visited.add(n)
-
-		result = dfs(edgeList, visited, n, target)
-		if result == True:
-			break
-
-	return result
-
-
 # Directed graph
 class DiGraph:
 	def __init__(self, edgeListString, delim=' '):
 		self.edgeList = makeEdgeList(edgeListString, delim)
 
+	def checkNodes(self, nodes):
+		for n in nodes:
+			if n not in self.edgeList:
+				raise ValueError(f'At least one node in {nodes} is not in edge list')
 
-	def hasPath(self, source, target):
-		if source not in self.edgeList or target not in self.edgeList:
-			return False
+	def allPaths(self, source, target):
+		self.checkNodes((source,target))
+
+		def descend(visited, paths, path, edgeList, source, target):
+			visited.add(source)
+			path.append(source)
+			
+			if source == target:
+				paths.append(path.copy())
+			else:
+				for n in edgeList[source]:
+					if n in visited: continue
+					descend(visited, paths, path, edgeList, n, target)
+
+			path.pop()
+			visited.remove(source)
+
 		visited = set()
+		path = []
+		paths = []
 
-		return dfs(self.edgeList, visited, source, target)
-
+		descend(visited, paths, path, self.edgeList, source, target)
+		
+		return paths or None
