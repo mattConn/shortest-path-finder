@@ -42,13 +42,11 @@ def allPaths(graph, source, target):
 	
 	return paths or None
 
-def shortestPaths(graph, source, target):
-	paths = graph.allPaths(source, target)
-
+def shortestPaths(paths):
 	if paths == None: return None
 
-	paths.sort(key = len)
+	sortedPaths = sorted(paths, key = len)
 
-	minLengths = filter(lambda x: len(x) == len(paths[0]), paths)
+	minLengths = filter(lambda x: len(x) == len(sortedPaths[0]), sortedPaths)
 
 	return [path for path in minLengths]
