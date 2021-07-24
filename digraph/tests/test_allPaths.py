@@ -1,4 +1,4 @@
-import digraph as dg
+import graph
 
 connections =  '''
 NY -> Iceland -> London -> Berlin
@@ -7,7 +7,7 @@ Berlin -> Paris -> Amsterdam
 Paris -> London -> Egypt
 '''
 
-g = dg.DiGraph(connections, ' -> ')
+cg = graph.fromEdgeList(connections, ' -> ')
 
 def test_hasPaths():
 	want = [
@@ -15,21 +15,21 @@ def test_hasPaths():
 		['NY', 'Maine', 'London', 'Egypt']
 	]
 
-	assert g.allPaths('NY','Egypt') == want
+	assert graph.allPaths(cg,'NY','Egypt') == want
 
 def test_noPaths():
 	want = None
 
-	assert g.allPaths('Amsterdam','London') == want
+	assert graph.allPaths(cg,'Amsterdam','London') == want
 
 def test_badSourceTarget():
 	result = [
 		# bad source
-		g.allPaths('Tokyo','Amsterdam'),
+		graph.allPaths(cg,'Tokyo','Amsterdam'),
 		# bad target
-		g.allPaths('NY','LA'),
+		graph.allPaths(cg,'NY','LA'),
 		# bad source and target
-		g.allPaths('Tokyo','LA'),
+		graph.allPaths(cg,'Tokyo','LA'),
 	]
 
 	want = [None] * len(result) 

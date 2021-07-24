@@ -1,4 +1,5 @@
-import digraph as dg
+from digraph.graph import shortestPaths
+import graph
 
 connections =  '''
 NY -> Iceland -> London -> Berlin
@@ -28,9 +29,9 @@ D -> E
 E -> A
 '''
 
-g = dg.DiGraph(connections, ' -> ')
-simple = dg.DiGraph(simpleGraphString, ' -> ')
-cycle = dg.DiGraph(cycleGraphString, ' -> ')
+cg = graph.fromEdgeList(connections, ' -> ')
+simple = graph.fromEdgeList(simpleGraphString, ' -> ')
+cycle = graph.fromEdgeList(cycleGraphString, ' -> ')
 
 def test_hasPaths():
 	want = [
@@ -38,12 +39,14 @@ def test_hasPaths():
 		['NY', 'Maine', 'London', 'Egypt']
 	]
 
-	assert g.shortestPaths('NY','Egypt') == want
+	paths = graph.allPaths(cg,'NY','Egypt')
+	assert graph.shortestPaths(paths) == want
 
 def test_noPaths():
 	want = None
 
-	assert g.shortestPaths('Amsterdam','London') == want
+	paths = graph.allPaths(cg,'Amsterdam','London')
+	assert graph.shortestPaths(paths) == want
 
 def test_morePaths():
 	want = [
@@ -57,30 +60,32 @@ def test_morePaths():
 		]
 	]
 
-	pathCollections = [
-		simple.shortestPaths('A','E'),
-		simple.shortestPaths('A','D')
+	paths = [
+		graph.allPaths(simple,'A','E'),
+		graph.allPaths(simple,'A','D')
 	]
 
-	assert pathCollections == want
+	assert [graph.shortestPaths(path) for path in paths] == want
+
 
 def test_cycleString():
 	want = [
 		['B','C','D','E']
 	]
 
-	assert cycle.shortestPaths('B','E') == want
+	paths = graph.allPaths(cycle,'B','E')
+	assert graph.shortestPaths(paths) == want
 
 def test_badSourceTarget():
-	result = [
+	paths = [
 		# bad source
-		g.shortestPaths('Tokyo','Amsterdam'),
+		graph.allPaths(cg,'Tokyo','Amsterdam'),
 		# bad target
-		g.shortestPaths('NY','LA'),
+		graph.allPaths(cg,'NY','LA'),
 		# bad source and target
-		g.shortestPaths('Tokyo','LA'),
+		graph.allPaths(cg,'Tokyo','LA'),
 	]
 
-	want = [None] * len(result) 
+	want = [None] * len(paths) 
 
-	assert want == result
+	assert [graph.shortestPaths(path) for path in paths] == want
