@@ -51,3 +51,14 @@ class DiGraph:
 		descend(visited, paths, path, self.edgeList, source, target)
 		
 		return paths or None
+
+	def shortestPaths(self, source, target):
+		paths = self.allPaths(source, target)
+
+		if paths == None: return None
+
+		paths.sort(key = len)
+
+		minLengths = filter(lambda x: len(x) == len(paths[0]), paths)
+
+		return [path for path in minLengths]
