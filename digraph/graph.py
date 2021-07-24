@@ -18,7 +18,7 @@ def makeEdgeList(edgeListString, delim=' '):
 	return edgeList
 
 # Directed graph
-class DiGraph:
+class Graph:
 	def __init__(self, edgeListString, delim=' '):
 		self.edgeList = makeEdgeList(edgeListString, delim)
 

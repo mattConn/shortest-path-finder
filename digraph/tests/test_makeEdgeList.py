@@ -1,4 +1,4 @@
-import digraph as dg
+import graph as g
 
 connections =  '''
 NY -> Iceland -> London -> Berlin
@@ -8,7 +8,7 @@ Paris -> London -> Egypt
 '''
 
 def test_connections():
-	edgeList = dg.makeEdgeList(connections,' -> ')
+	edgeList = g.makeEdgeList(connections,' -> ')
 	want = {
 		'NY': ['Iceland','Maine'],
 		'Iceland': ['London'],

@@ -1,4 +1,4 @@
-import digraph as dg
+import graph as g
 
 connections =  '''
 NY -> Iceland -> London -> Berlin
@@ -28,9 +28,9 @@ D -> E
 E -> A
 '''
 
-g = dg.DiGraph(connections, ' -> ')
-simple = dg.DiGraph(simpleGraphString, ' -> ')
-cycle = dg.DiGraph(cycleGraphString, ' -> ')
+cg = g.Graph(connections, ' -> ')
+simple = g.Graph(simpleGraphString, ' -> ')
+cycle = g.Graph(cycleGraphString, ' -> ')
 
 def test_hasPaths():
 	want = [
@@ -38,12 +38,12 @@ def test_hasPaths():
 		['NY', 'Maine', 'London', 'Egypt']
 	]
 
-	assert g.shortestPaths('NY','Egypt') == want
+	assert cg.shortestPaths('NY','Egypt') == want
 
 def test_noPaths():
 	want = None
 
-	assert g.shortestPaths('Amsterdam','London') == want
+	assert cg.shortestPaths('Amsterdam','London') == want
 
 def test_morePaths():
 	want = [
@@ -74,11 +74,11 @@ def test_cycleString():
 def test_badSourceTarget():
 	result = [
 		# bad source
-		g.shortestPaths('Tokyo','Amsterdam'),
+		cg.shortestPaths('Tokyo','Amsterdam'),
 		# bad target
-		g.shortestPaths('NY','LA'),
+		cg.shortestPaths('NY','LA'),
 		# bad source and target
-		g.shortestPaths('Tokyo','LA'),
+		cg.shortestPaths('Tokyo','LA'),
 	]
 
 	want = [None] * len(result) 
