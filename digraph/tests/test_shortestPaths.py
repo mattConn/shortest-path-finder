@@ -1,4 +1,4 @@
-import graph as g
+import graph
 
 connections =  '''
 NY -> Iceland -> London -> Berlin
@@ -28,9 +28,9 @@ D -> E
 E -> A
 '''
 
-cg = g.Graph(connections, ' -> ')
-simple = g.Graph(simpleGraphString, ' -> ')
-cycle = g.Graph(cycleGraphString, ' -> ')
+cg = graph.Graph(connections, ' -> ')
+simple = graph.Graph(simpleGraphString, ' -> ')
+cycle = graph.Graph(cycleGraphString, ' -> ')
 
 def test_hasPaths():
 	want = [
