@@ -21,3 +21,17 @@ def test_noPaths():
 	want = None
 
 	assert g.allPaths('Amsterdam','London') == want
+
+def test_badSourceTarget():
+	result = [
+		# bad source
+		g.allPaths('Tokyo','Amsterdam'),
+		# bad target
+		g.allPaths('NY','LA'),
+		# bad source and target
+		g.allPaths('Tokyo','LA'),
+	]
+
+	want = [None] * len(result) 
+
+	assert want == result

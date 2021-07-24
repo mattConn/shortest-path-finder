@@ -25,10 +25,12 @@ class DiGraph:
 	def checkNodes(self, nodes):
 		for n in nodes:
 			if n not in self.edgeList:
-				raise ValueError(f'At least one node in {nodes} is not in edge list')
+				return False 
+		return True
 
 	def allPaths(self, source, target):
-		self.checkNodes((source,target))
+		if not self.checkNodes((source,target)):
+			return None
 
 		def descend(visited, paths, path, edgeList, source, target):
 			visited.add(source)

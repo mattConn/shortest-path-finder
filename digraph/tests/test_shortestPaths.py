@@ -70,3 +70,17 @@ def test_cycleString():
 	]
 
 	assert cycle.shortestPaths('B','E') == want
+
+def test_badSourceTarget():
+	result = [
+		# bad source
+		g.shortestPaths('Tokyo','Amsterdam'),
+		# bad target
+		g.shortestPaths('NY','LA'),
+		# bad source and target
+		g.shortestPaths('Tokyo','LA'),
+	]
+
+	want = [None] * len(result) 
+
+	assert want == result
