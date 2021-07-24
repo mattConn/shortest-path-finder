@@ -8,7 +8,7 @@ Paris -> London -> Egypt
 '''
 
 def test_connections():
-	edgeList = graph.makeEdgeList(connections,' -> ')
+	edgeList = graph.fromEdgeList(connections,' -> ')
 	want = {
 		'NY': ['Iceland','Maine'],
 		'Iceland': ['London'],

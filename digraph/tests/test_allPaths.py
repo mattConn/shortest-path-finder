@@ -7,7 +7,7 @@ Berlin -> Paris -> Amsterdam
 Paris -> London -> Egypt
 '''
 
-cg = graph.Graph(connections, ' -> ')
+cg = graph.fromEdgeList(connections, ' -> ')
 
 def test_hasPaths():
 	want = [

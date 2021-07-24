@@ -28,9 +28,9 @@ D -> E
 E -> A
 '''
 
-cg = graph.Graph(connections, ' -> ')
-simple = graph.Graph(simpleGraphString, ' -> ')
-cycle = graph.Graph(cycleGraphString, ' -> ')
+cg = graph.fromEdgeList(connections, ' -> ')
+simple = graph.fromEdgeList(simpleGraphString, ' -> ')
+cycle = graph.fromEdgeList(cycleGraphString, ' -> ')
 
 def test_hasPaths():
 	want = [

@@ -1,66 +1,52 @@
 # Reads edge list string with specified delimeter and returns dictionary
-def makeEdgeList(edgeListString, delim=' '):
-	edgeList = dict()	
+def fromEdgeList(edgeList, delim=' '):
+	graph = dict()	
 
-	lines = edgeListString.split('\n')
+	lines = edgeList.split('\n')
 	for line in lines:
 		if len(line) == 0: continue
 
 		nodes = line.split(delim)
 		for i in range(len(nodes)):
-			if nodes[i] not in edgeList:
-				edgeList[nodes[i]] = []
+			if nodes[i] not in graph:
+				graph[nodes[i]] = []
 
 			if i+1 == len(nodes): break
 
-			edgeList[nodes[i]].append(nodes[i+1])
+			graph[nodes[i]].append(nodes[i+1])
 
-	return edgeList
+	return graph 
 
-# Directed graph
-class Graph:
-	def __init__(self, edgeListString, delim=' '):
-		self.edgeList = makeEdgeList(edgeListString, delim)
-
-	def checkNodes(self, nodes):
-		for n in nodes:
-			if n not in self.edgeList:
-				return False 
-		return True
-
-	def allPaths(self, source, target):
-		if not self.checkNodes((source,target)):
-			return None
-
-		def descend(visited, paths, path, edgeList, source, target):
-			visited.add(source)
-			path.append(source)
-			
-			if source == target:
-				paths.append(path.copy())
-			else:
-				for n in edgeList[source]:
-					if n in visited: continue
-					descend(visited, paths, path, edgeList, n, target)
-
-			path.pop()
-			visited.remove(source)
-
-		visited = set()
-		path = []
-		paths = []
-
-		descend(visited, paths, path, self.edgeList, source, target)
+def allPaths(graph, source, target):
+	def descend(visited, paths, path, edgeList, source, target):
+		visited.add(source)
+		path.append(source)
 		
-		return paths or None
+		if source == target:
+			paths.append(path.copy())
+		else:
+			for n in edgeList[source]:
+				if n in visited: continue
+				descend(visited, paths, path, edgeList, n, target)
 
-	def shortestPaths(self, source, target):
-		paths = self.allPaths(source, target)
+		path.pop()
+		visited.remove(source)
 
-		if paths == None: return None
+	visited = set()
+	path = []
+	paths = []
 
-		paths.sort(key = len)
+	descend(visited, paths, path, graph.edgeList, source, target)
+	
+	return paths or None
 
-		minLengths = filter(lambda x: len(x) == len(paths[0]), paths)
+def shortestPaths(graph, source, target):
+	paths = graph.allPaths(source, target)
 
-		return [path for path in minLengths]
+	if paths == None: return None
+
+	paths.sort(key = len)
+
+	minLengths = filter(lambda x: len(x) == len(paths[0]), paths)
+
+	return [path for path in minLengths]
