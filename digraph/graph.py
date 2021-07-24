@@ -18,16 +18,18 @@ def fromEdgeList(edgeList, delim=' '):
 	return graph 
 
 def allPaths(graph, source, target):
-	def descend(visited, paths, path, edgeList, source, target):
+	if source not in graph or target not in graph: return None
+
+	def descend(visited, paths, path, graph, source, target):
 		visited.add(source)
 		path.append(source)
 		
 		if source == target:
 			paths.append(path.copy())
 		else:
-			for n in edgeList[source]:
+			for n in graph[source]:
 				if n in visited: continue
-				descend(visited, paths, path, edgeList, n, target)
+				descend(visited, paths, path, graph, n, target)
 
 		path.pop()
 		visited.remove(source)
@@ -36,7 +38,7 @@ def allPaths(graph, source, target):
 	path = []
 	paths = []
 
-	descend(visited, paths, path, graph.edgeList, source, target)
+	descend(visited, paths, path, graph, source, target)
 	
 	return paths or None
 

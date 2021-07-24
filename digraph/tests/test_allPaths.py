@@ -15,21 +15,21 @@ def test_hasPaths():
 		['NY', 'Maine', 'London', 'Egypt']
 	]
 
-	assert cg.allPaths('NY','Egypt') == want
+	assert graph.allPaths(cg,'NY','Egypt') == want
 
 def test_noPaths():
 	want = None
 
-	assert cg.allPaths('Amsterdam','London') == want
+	assert graph.allPaths(cg,'Amsterdam','London') == want
 
 def test_badSourceTarget():
 	result = [
 		# bad source
-		cg.allPaths('Tokyo','Amsterdam'),
+		graph.allPaths(cg,'Tokyo','Amsterdam'),
 		# bad target
-		cg.allPaths('NY','LA'),
+		graph.allPaths(cg,'NY','LA'),
 		# bad source and target
-		cg.allPaths('Tokyo','LA'),
+		graph.allPaths(cg,'Tokyo','LA'),
 	]
 
 	want = [None] * len(result) 
