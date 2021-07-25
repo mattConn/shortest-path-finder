@@ -1,4 +1,3 @@
-from digraph.graph import shortestPaths
 import graph
 
 connections =  '''
