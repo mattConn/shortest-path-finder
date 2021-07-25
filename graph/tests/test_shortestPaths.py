@@ -92,6 +92,9 @@ def test_badSourceTarget():
 def test_noPathsLiteral():
 	assert graph.shortestPaths(None) == None
 
+def test_emptyPathsLiteral():
+	assert graph.shortestPaths([]) == [] 
+
 def test_allPathsEqualLen():
 	paths = [
 		['a','b','c'],

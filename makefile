@@ -1,5 +1,6 @@
 testRunner = python -m pytest
 testFlag = -k
+cacheDirs = graph graph/tests
 
 # test graph construction
 tgraph:
@@ -18,4 +19,4 @@ test: tgraph paths shortest
 
 # clear pycache
 cache:
-	rm -r __pycache__; rm -r graph/__pycache__; rm -r graph/tests/__pycache__
+	for dir in $(cacheDirs); do rm -r $$dir/__pycache__; done
