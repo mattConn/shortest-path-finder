@@ -88,3 +88,15 @@ def test_badSourceTarget():
 	want = [None] * len(paths) 
 
 	assert [graph.shortestPaths(path) for path in paths] == want
+
+def test_noPathsLiteral():
+	assert graph.shortestPaths(None) == None
+
+def test_allPathsEqualLen():
+	paths = [
+		['a','b','c'],
+		['d','e','f'],
+		['g','h','i']
+	]
+
+	assert graph.shortestPaths(paths) == paths 
