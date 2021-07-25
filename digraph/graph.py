@@ -6,6 +6,8 @@ def fromEdgeList(edgeList, delim=' '):
 	for line in lines:
 		if len(line) == 0: continue
 
+		if delim not in line: return dict()
+
 		nodes = line.split(delim)
 		for i in range(len(nodes)):
 			if nodes[i] not in graph:

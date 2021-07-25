@@ -9,6 +9,8 @@ Paris -> London -> Egypt
 
 cg = graph.fromEdgeList(connections, ' -> ')
 
+linear = graph.fromEdgeList('a -> b -> c -> d', ' -> ')
+
 def test_hasPaths():
 	want = [
 		['NY', 'Iceland', 'London', 'Egypt'],
@@ -35,3 +37,11 @@ def test_badSourceTarget():
 	want = [None] * len(result) 
 
 	assert want == result
+
+def test_empty():
+	assert graph.allPaths(dict(),'NY','Egypt') == None
+
+def test_linear():
+	want = [['a','b','c','d']]
+
+	assert graph.allPaths(linear,'a','d') == want
